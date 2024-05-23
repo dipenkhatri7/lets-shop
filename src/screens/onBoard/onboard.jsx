@@ -13,7 +13,7 @@ import CustomButton from "./components/customButton";
 function Onboard({ onComplete, navigation }) {
   const handleGetStarted = () => {
     onComplete();
-    navigation.navigate("Board");
+    navigation.replace("Board");
   };
 
   const flatListRef = useAnimatedRef();
@@ -39,9 +39,9 @@ function Onboard({ onComplete, navigation }) {
         data={data}
         onScroll={onScroll}
         keyExtractor={(item) => item.id}
-        horizontal={true}
+        horizontal
         scrollEventThrottle={16}
-        pagingEnabled={true}
+        pagingEnabled
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => (
           <RenderItem item={item} index={index} x={x} />

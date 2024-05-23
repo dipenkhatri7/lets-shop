@@ -9,7 +9,7 @@ import { useFonts } from "expo-font";
 import { AuthContext, AuthContextProvider } from "./src/store/auth-context";
 import { isFirstTimeUser, setFirstTimeUser } from "./src/utils/storage";
 import Loading from "./src/components/loading";
-// import { Button } from "react-native";
+import { Button } from "react-native";
 import LoginScreen from "./src/screens/Auth/loginScreen";
 import SignupScreen from "./src/screens/Auth/signupScreen";
 import OnBoarding from "./src/screens/Auth/onboardScreen";
@@ -164,13 +164,37 @@ function AuthenticatedStack() {
   );
 }
 
-function Navigation() {
+function FirstTimeStack({ handleCompleteOnboarding }) {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Onboard"
+        options={{
+          headerShown: false,
+        }}
+      >
+        {(props) => (
+          <Onboard {...props} onComplete={handleCompleteOnboarding} />
+        )}
+      </Stack.Screen>
+      <Stack.Screen name="Board" component={OnBoarding} />
+    </Stack.Navigator>
+  );
+}
+
+function Navigation({ isFirstTime, handleCompleteOnboarding }) {
   const authCtx = useContext(AuthContext);
 
   return (
     <NavigationContainer>
-      {!authCtx.isAuthenticated && <AuthStack />}
-      {authCtx.isAuthenticated && <AuthenticatedStack />}
+      {isFirstTime ? (
+        <FirstTimeStack handleCompleteOnboarding={handleCompleteOnboarding} />
+      ) : (
+        <>
+          {!authCtx.isAuthenticated && <AuthStack />}
+          {authCtx.isAuthenticated && <AuthenticatedStack />}
+        </>
+      )}
     </NavigationContainer>
   );
 }
@@ -181,11 +205,7 @@ export default function App() {
   useEffect(() => {
     const checkFirstTimeUser = async () => {
       const firstTime = await isFirstTimeUser();
-      if (firstTime) {
-        setIsFirstTime(true);
-      } else {
-        setIsFirstTime(false);
-      }
+      setIsFirstTime(firstTime);
     };
 
     checkFirstTimeUser();
@@ -209,15 +229,6 @@ export default function App() {
     }
   };
 
-  const clearStorage = async () => {
-    try {
-      await AsyncStorage.clear();
-      setIsFirstTime(true);
-    } catch (error) {
-      console.error("Failed to clear storage:", error);
-    }
-  };
-
   if (isFirstTime === null) {
     return <Loading message={"Checking if user is first time user"} />;
   }
@@ -227,12 +238,10 @@ export default function App() {
       <CartProvider>
         <FavoritesProvider>
           <StatusBar style="auto" />
-          {isFirstTime ? (
-            <Onboard onComplete={handleCompleteOnboarding} />
-          ) : (
-            <Navigation />
-          )}
-          {/* <Button title="Clear Storage" onPress={clearStorage} /> */}
+          <Navigation
+            isFirstTime={isFirstTime}
+            handleCompleteOnboarding={handleCompleteOnboarding}
+          />
         </FavoritesProvider>
       </CartProvider>
     </AuthContextProvider>
