@@ -1,4 +1,4 @@
-# React Native Let's Shop
+# Let's Shop
 
 This is a mobile application built with React Native that allows users to browse products, add them to the cart, and proceed to checkout. It fetches product data from an external API and provides features such as product search, cart management, and user authentication.
 
