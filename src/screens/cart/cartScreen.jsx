@@ -5,16 +5,22 @@ import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "../../components/customButton";
 import { Colors } from "../../constants/styles";
 
+/**
+ * The CartScreen component displays the products added to the cart.
+ * It allows users to adjust the quantity of products and remove them from the cart.
+ */
 function CartScreen() {
   const { cart, updateQuantity, removeFromCart } = useCart();
 
+  // Calculate the total amount of the cart
   const totalAmount = cart.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
 
   return (
-    <View className="flex-1 p-4 bg-white">
+    <View style={{ flex: 1, padding: 16, backgroundColor: "white" }}>
+      {/* Render the list of cart items */}
       <FlatList
         data={cart}
         keyExtractor={(item) => item.id.toString()}
@@ -26,9 +32,33 @@ function CartScreen() {
           />
         )}
       />
-      <View className="h-px w-full bg-gray-400 my-3" />
-      <View className="flex-row justify-between items-center align-center">
-        <Text className="text-xl font-bold text-center font-urbanist-medium">
+
+      {/* Divider */}
+      <View
+        style={{
+          height: 1,
+          width: "100%",
+          backgroundColor: "#D1D5DB",
+          marginVertical: 10,
+        }}
+      />
+
+      {/* Total amount and Checkout button */}
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "bold",
+            textAlign: "center",
+            fontFamily: "urbanist-medium",
+          }}
+        >
           Total: ${totalAmount.toFixed(2)}
         </Text>
         <CustomButton
@@ -50,48 +80,102 @@ function CartScreen() {
   );
 }
 
+/**
+ * The CartItem component represents an individual item in the cart list.
+ * It displays product details, allows adjusting quantity, and removing the product from the cart.
+ * @param {Object} product - The product object containing details like id, title, image, price, and quantity.
+ * @param {Function} updateQuantity - Function to update the quantity of the product.
+ * @param {Function} removeFromCart - Function to remove the product from the cart.
+ */
 function CartItem({ product, updateQuantity, removeFromCart }) {
   return (
-    <View className="flex-column mb-4 p-4 border border-gray-300 rounded-lg">
-      <View className="flex-row">
+    <View
+      style={{
+        marginBottom: 20,
+        padding: 16,
+        borderWidth: 1,
+        borderColor: "#D1D5DB",
+        borderRadius: 8,
+      }}
+    >
+      <View style={{ flexDirection: "row" }}>
         <Image
           source={{ uri: product.image }}
-          className="mr-4"
           style={{
+            marginRight: 12,
             width: 100,
             height: 100,
             resizeMode: "contain",
           }}
         />
-        <View className="flex-1">
-          <Text className="text-lg font-bold mb-2">{product.title}</Text>
-          <View className="flex-row items-center justify-between">
-            <Text className="text-base">${product.price.toFixed(2)}</Text>
-            <View className="flex-row items-center">
+        <View style={{ flex: 1 }}>
+          <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 8 }}>
+            {product.title}
+          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ fontSize: 16, marginRight: 20 }}>
+              ${product.price.toFixed(2)}
+            </Text>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Pressable
-                className="bg-gray-200 rounded-full p-2 cursor-pointer mr-2"
+                style={{
+                  backgroundColor: "#E5E7EB",
+                  borderRadius: 20,
+                  padding: 8,
+                  marginRight: 8,
+                }}
                 onPress={() =>
                   updateQuantity(product.id, Math.max(1, product.quantity - 1))
                 }
               >
-                <Ionicons name="remove-outline" size={18} color="black" />
+                <Ionicons name="remove-outline" size={24} color="black" />
               </Pressable>
-              <View className="bg-gray-200 rounded-md p-1 px-2">
-                <Text className="text-lg">{product.quantity}</Text>
-              </View>
+              <Text style={{ fontSize: 18, marginHorizontal: 8 }}>
+                {product.quantity}
+              </Text>
               <Pressable
-                className="bg-gray-200 rounded-full p-2 cursor-pointer ml-2"
+                style={{
+                  backgroundColor: "#E5E7EB",
+                  borderRadius: 20,
+                  padding: 8,
+                  marginLeft: 8,
+                }}
                 onPress={() => updateQuantity(product.id, product.quantity + 1)}
               >
-                <Ionicons name="add-outline" size={18} color="black" />
+                <Ionicons name="add-outline" size={24} color="black" />
               </Pressable>
             </View>
           </View>
         </View>
       </View>
-      <View className="h-px w-full bg-gray-400 my-3" />
-      <View className="flex-row items-center justify-between">
-        <Text className="text-base font-bold font-urbanist-medium">
+      <View
+        style={{
+          height: 1,
+          width: "100%",
+          backgroundColor: "#D1D5DB",
+          marginVertical: 10,
+        }}
+      />
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "bold",
+            fontFamily: "urbanist-medium",
+          }}
+        >
           Total: ${(product.price * product.quantity).toFixed(2)}
         </Text>
         <CustomButton
@@ -108,5 +192,3 @@ function CartItem({ product, updateQuantity, removeFromCart }) {
     </View>
   );
 }
-
-export default CartScreen;

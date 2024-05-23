@@ -4,23 +4,67 @@ import { AuthContext } from "../../store/auth-context";
 import CustomButton from "../../components/customButton";
 import { Colors } from "../../constants/styles";
 
+/**
+ * Profile screen component.
+ *
+ * Renders user profile information and logout button.
+ * @returns {JSX.Element} Profile screen component
+ */
 function ProfileScreen() {
+  // Access authentication context
   const authCtx = useContext(AuthContext);
+
   return (
-    <View className="flex-1 justify-between align-center bg-white p-7">
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: "white",
+        padding: 7,
+      }}
+    >
       <View>
-        <Text className="text-center text-xl font-bold mb-2 font-urbanist-medium">
+        <Text
+          style={{
+            textAlign: "center",
+            fontSize: 20,
+            fontWeight: "bold",
+            marginBottom: 2,
+            fontFamily: "urbanist-medium",
+          }}
+        >
           This app is developed by:
         </Text>
-        <View className="h-px w-full bg-gray-400 my-3" />
-        <Text className="text-center text-xl font-bold mb-2 font-urbanist-medium">
+        <View
+          style={{
+            height: 1,
+            width: "100%",
+            backgroundColor: "#ccc",
+            marginVertical: 3,
+          }}
+        />
+        <Text
+          style={{
+            textAlign: "center",
+            fontSize: 20,
+            fontWeight: "bold",
+            marginBottom: 2,
+            fontFamily: "urbanist-medium",
+          }}
+        >
           Dipen Khatri
         </Text>
-        <Text className="text-center text-md font-normal font-urbanist-regular">
+        <Text
+          style={{
+            textAlign: "center",
+            fontSize: 16,
+            fontFamily: "urbanist-regular",
+          }}
+        >
           Khatridipen7@gmail.com
         </Text>
       </View>
-
       <CustomButton
         text="Logout"
         onPress={authCtx.logout}

@@ -1,13 +1,25 @@
 import { useContext, useState } from "react";
+import { Alert } from "react-native";
 import AuthContent from "./components/authContent";
 import { login } from "../../utils/auth";
 import Loading from "../../components/loading";
-import { Alert } from "react-native";
 import { AuthContext } from "../../store/auth-context";
 
+/**
+ * The LoginScreen component handles the user login process.
+ * It displays a loading spinner while authenticating and
+ * shows an alert if authentication fails.
+ */
 function LoginScreen() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const authCtx = useContext(AuthContext);
+
+  /**
+   * Handles the login process.
+   * @param {Object} credentials - The user's login credentials.
+   * @param {string} credentials.email - The user's email.
+   * @param {string} credentials.password - The user's password.
+   */
   async function loginHandler({ email, password }) {
     setIsAuthenticating(true);
     try {

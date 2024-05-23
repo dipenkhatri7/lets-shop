@@ -13,16 +13,24 @@ import CarouselSlider from "./components/carousel";
 import CategoryText from "./components/categoryText";
 import ProductItem from "../../components/productItem";
 
+// Get the height of the screen
 const screenHeight = Dimensions.get("window").height;
 
+/**
+ * Component for the home screen displaying various product categories and available products.
+ * Fetches and displays products from the server.
+ */
 function HomeScreen({ navigation }) {
-  const [products, setProducts] = useState([]);
-  const { addToCart } = useCart();
-  const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState([]); // State to store fetched products
+  const { addToCart } = useCart(); // Access addToCart function from cart context
+  const [isLoading, setIsLoading] = useState(true); // State to track loading status
+
+  // Fetch products from the server when the component mounts
   useEffect(() => {
     fetchData();
   }, []);
 
+  // Function to fetch products from the server
   const fetchData = async () => {
     try {
       const data = await fetchProducts();
@@ -30,10 +38,11 @@ function HomeScreen({ navigation }) {
     } catch (error) {
       console.error(error);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Update loading state after fetching data
     }
   };
 
+  // Render loading indicator while fetching data
   if (isLoading) {
     return <Loading message={"Loading products..."} />;
   }
@@ -45,11 +54,11 @@ function HomeScreen({ navigation }) {
         imageSourcePrototype={require("../../../assets/images/best_picks.png")}
         onPress={() => {}}
       />
-      <View className="h-px w-full bg-gray-400 mb-3" />
+      <View style={styles.separator} />
       <View style={styles.carouselContainer}>
         <CarouselSlider items={products} />
       </View>
-      <View className="h-px w-full bg-gray-400 mt-7 mb-2" />
+      <View style={styles.separator} />
       <CategoryText
         leftText="Available Products"
         rightText="See all"
@@ -57,8 +66,7 @@ function HomeScreen({ navigation }) {
           navigation.navigate("Search");
         }}
       />
-      <View className="mt-4" />
-
+      <View style={styles.spacing} />
       <View style={styles.listContainer}>
         <FlatList
           data={products}
@@ -73,53 +81,27 @@ function HomeScreen({ navigation }) {
   );
 }
 
+// Stylesheet for the HomeScreen component
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
   },
+  separator: {
+    height: StyleSheet.hairlineWidth,
+    width: "100%",
+    backgroundColor: "#ccc",
+    marginVertical: 3,
+  },
   carouselContainer: {
     height: screenHeight / 3,
   },
-  bestPicksText: {
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
+  spacing: {
+    marginTop: 4,
   },
   listContainer: {
     flex: 1,
     paddingHorizontal: 16,
-  },
-  productContainer: {
-    marginBottom: 16,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  productImage: {
-    width: "100%",
-    height: 200,
-    resizeMode: "contain",
-  },
-  productTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginVertical: 8,
-  },
-  productPrice: {
-    fontSize: 16,
-    color: "#888",
-  },
-  quantityContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 8,
-  },
-  quantityText: {
-    marginHorizontal: 8,
-    fontSize: 16,
   },
 });
 

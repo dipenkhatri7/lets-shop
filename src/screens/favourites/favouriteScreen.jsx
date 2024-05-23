@@ -4,14 +4,26 @@ import { FavoritesContext } from "../../store/favourite-context";
 import { fetchProducts } from "../../utils/http";
 import ProductItem from "../../components/productItem";
 
+/**
+ * Component for displaying favorite products.
+ * Fetches and displays products marked as favorites.
+ */
 const FavoriteScreen = () => {
+  // Accessing the favorites context to get the list of favorite product IDs
   const { favorites } = useContext(FavoritesContext);
+
+  // State to store the fetched products
   const [products, setProducts] = useState([]);
 
+  // Fetch products from the server when the component mounts
   useEffect(() => {
     fetchData();
   }, []);
 
+  /**
+   * Function to fetch products from the server.
+   * Updates the state with the fetched products.
+   */
   const fetchData = async () => {
     try {
       const data = await fetchProducts();
@@ -21,6 +33,7 @@ const FavoriteScreen = () => {
     }
   };
 
+  // Filter products to get only the favorite ones
   const favoriteProducts = products.filter((product) =>
     favorites.includes(product.id)
   );
@@ -33,6 +46,7 @@ const FavoriteScreen = () => {
             No favorite products
           </Text>
         ) : (
+          // Map through the favorite products and render ProductItem component for each
           favoriteProducts.map((product) => (
             <ProductItem key={product.id} product={product} />
           ))
