@@ -58,3 +58,56 @@ To run the application locally, follow these steps:
 5. Access the cart screen to view and manage the products added to your cart, as well as view the total.
 6. Favorite products to easily access them later from the favorites screen accessible via the drawer.
 7. Log out to clear authentication tokens and enhance app security.
+
+## Screenshots
+
+1. Onboard Screens
+
+<p float="left">
+  <img src="https://res.cloudinary.com/dpx53grhp/image/upload/v1716448951/vf5yqeewpbenbn0fqlvf.png" width="208" />
+  <img src="https://res.cloudinary.com/dpx53grhp/image/upload/v1716448951/u9oj5iimbfkitkujw4ca.png" width="208" /> 
+  <img src="https://res.cloudinary.com/dpx53grhp/image/upload/v1716448951/kvwhnlvkd2vk2sqtnaxd.png" width="208" />
+</p>
+
+2. Auth Screens
+
+<p float="left">
+  <img src="https://res.cloudinary.com/dpx53grhp/image/upload/v1716448951/ed3tek8tzw9jfi1evr3l.png" width="208" />
+  <img src="https://res.cloudinary.com/dpx53grhp/image/upload/v1716448954/xtntd2wcgsoidadxisqv.png" width="208" /> 
+  <img src="https://res.cloudinary.com/dpx53grhp/image/upload/v1716451145/oln6jn6wcf9nlfkzk8vf.png" width="208" />
+</p>
+
+3. Home Screens
+   
+<p float="left">
+  <img src="https://res.cloudinary.com/dpx53grhp/image/upload/v1716448959/mb2wfnvoeuiiagrwq82p.png" width="208" />
+  <img src="https://res.cloudinary.com/dpx53grhp/image/upload/v1716448952/ve8k7bhhnvgjvr44fmd7.png" width="208" />
+</p>
+
+4. Search Screen
+   
+<p float="left">
+  <img src="https://res.cloudinary.com/dpx53grhp/image/upload/v1716451298/oeppvcgct46aeh7uvptn.png" width="208" />
+</p>
+
+5. Cart Screen
+
+<p float="left">
+  <img src="https://res.cloudinary.com/dpx53grhp/image/upload/v1716448952/qdshcsu6pmq2gnpxldw4.png" width="208" />
+</p>
+
+6. Favourite Screen
+
+<p float="left">
+  <img src="https://res.cloudinary.com/dpx53grhp/image/upload/v1716448952/gjcrq5w7d462ozwygmti.png" width="208" />
+</p>
+
+6. Profile Screen
+
+<p float="left">
+  <img src="https://res.cloudinary.com/dpx53grhp/image/upload/v1716448951/y21bxfojkl5sjaybscqf.png" width="208" />
+</p>
+
+
+   
+   
